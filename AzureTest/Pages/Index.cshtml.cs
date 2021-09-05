@@ -26,7 +26,9 @@ namespace AzureTest.Pages
 		{
 			try
 			{
-				string connString = this._config.GetConnectionString("DefaultConnection");
+				bool isOnAzure = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
+
+				string connString =  this._config.GetConnectionString(isOnAzure ? "ConnectionStringFromAzure" : "LocalTestDB");
 
 				using (var conn = new SqlConnection(connString))
 				{
