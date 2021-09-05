@@ -24,18 +24,26 @@ namespace AzureTest.Pages
 
 		public void OnGet()
 		{
-			string connString = this._config.GetConnectionString("DefaultConnection");
-
-			using (var conn = new SqlConnection(connString))
+			try
 			{
-				conn.Open();
-				var cmd = new SqlCommand("SELECT * FROM AzureHelloTable", conn);
-				var dataReader = cmd.ExecuteReader();
-				while (dataReader.Read())
+				string connString = this._config.GetConnectionString("DefaultConnection");
+
+				using (var conn = new SqlConnection(connString))
 				{
-					ViewData["messageFromDB"] += "<br/>" + (string)dataReader.GetValue(1);
+					conn.Open();
+					var cmd = new SqlCommand("SELECT * FROM AzureHelloTable", conn);
+					var dataReader = cmd.ExecuteReader();
+					while (dataReader.Read())
+					{
+						ViewData["messageFromDB"] += "<br/>" + (string)dataReader.GetValue(1);
+					}
 				}
 			}
+			catch(Exception e)
+			{
+				ViewData["messageFromDB"] = $"<span style=\"color: red;\"> Failed to get data from DB <br/>{e.Message}</span>";
+			}
+
 		}
 	}
 }
