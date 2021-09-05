@@ -24,11 +24,12 @@ namespace AzureTest.Pages
 
 		public void OnGet()
 		{
+			string connString = "null";
 			try
 			{
 				bool isOnAzure = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
 
-				string connString =  this._config.GetConnectionString(isOnAzure ? "ConnectionStringFromAzure" : "LocalTestDB");
+				connString =  this._config.GetConnectionString(isOnAzure ? "ConnectionStringFromAzure" : "LocalTestDB");
 
 				using (var conn = new SqlConnection(connString))
 				{
@@ -43,7 +44,7 @@ namespace AzureTest.Pages
 			}
 			catch(Exception e)
 			{
-				ViewData["messageFromDB"] = $"<span style=\"color: red;\"> Failed to get data from DB <br/>{e.Message}</span>";
+				ViewData["messageFromDB"] = $"<span style=\"color: red;\"> Failed to get data from DB <br/>{e.Message}<br/>Connection String: {connString}</span>";
 			}
 
 		}
