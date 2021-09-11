@@ -58,6 +58,9 @@ jobs:
     - name: Create Octopus package
       run: octo pack --id="myapp" --format="Zip" --version="$PACKAGE_VERSION"
       
+    - name: Echp package version
+      run: echo $PACKAGE_VERSION
+      
     - name: Push package to octopus
       run: octo push --package="myapp.{$PACKAGE_VERSION}.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
 
