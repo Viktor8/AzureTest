@@ -52,5 +52,8 @@ jobs:
       with:
         version: latest
         
-    - name: Create Octopus package
-      run: octo pack --id="myapp" --format="Zip" --version="$PACKAGE_VERSION"
+    #- name: Create Octopus package
+    #  run: octo pack --id="myapp" --format="Zip" --version="$PACKAGE_VERSION"
+    - name: Push package to octopus
+      run: octo push --package=".net-app" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
+
