@@ -55,9 +55,9 @@ jobs:
     - name: Show directory content
       run: dir
 
-    
-    #- name: Create Octopus package
-    #  run: octo pack --id="myapp" --format="Zip" --version="$PACKAGE_VERSION"
-    #- name: Push package to octopus
-    #  run: octo push --package=".net-app" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
+    - name: Create Octopus package
+      run: octo pack --id="myapp" --format="Zip" --version="$PACKAGE_VERSION"
+      
+    - name: Push package to octopus
+      run: octo push --package="myapp" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
 
