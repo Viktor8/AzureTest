@@ -63,6 +63,7 @@ jobs:
       
     - name: Push package to octopus
       run: |
-        rem set packageFileName = 
+        set packageFileName = $PACKAGE_VERSION
+        echo %packageFileName%
         octo push --package="myapp.${{PACKAGE_VERSION}}.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
 
