@@ -18,11 +18,7 @@ jobs:
 
     - name: check package version
       shell: bash
-      run: |
-        echo "$GITHUB_CONTEXT"
-        echo $PACKAGE_VERSION
-        set pv = $PACKAGE_VERSION
-        echo %pv
+      run: echo "$GITHUB_CONTEXT"
 
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
