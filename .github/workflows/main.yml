@@ -60,11 +60,19 @@ jobs:
       run: dir
 
     - name: Create Octopus package
-      run: octo pack --id="myapp" --format="Zip"
+      run: octo pack --id="myapp" --format="Zip" --version="1.0.0.0"
       
     - name: Echo dir
       run: dir
       
-    - name: Push package to octopus
-      run: octo push --package="myapp.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
+    #- name: Push package to octopus
+    #  run: octo push --package="myapp.1.0.0.0.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
+      
+    - name: Push Package to Octopus Deploy
+      uses: OctopusDeploy/push-package-action@v1.0.2
+      with:
+        packages: myapp
+        api_key:  ${{ secrets.OCTOPUS_SERVER_API_KEY }}
+        server: ${{ secrets.OCTOPUS_SERVER_URL }}
+      
 
