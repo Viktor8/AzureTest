@@ -14,18 +14,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: check package version
-      shell: bash
-      run: echo "$GITHUB_CONTEXT"
-
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.x'
         include-prerelease: true
 
+    - uses: actions/checkout@v2
     - name: Build with dotnet
       run: dotnet build --configuration Release
 
@@ -71,7 +66,7 @@ jobs:
     - name: Push Package to Octopus Deploy
       uses: OctopusDeploy/push-package-action@v1.0.2
       with:
-        packages: myapp
+        packages: myapp.1.0.0.0.zip
         api_key:  ${{ secrets.OCTOPUS_SERVER_API_KEY }}
         server: ${{ secrets.OCTOPUS_SERVER_URL }}
       
