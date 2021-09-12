@@ -16,6 +16,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: check package version
+      run: |
+        echo $PACKAGE_VERSION
+        set pv = $PACKAGE_VERSION
+        echo %pv
+
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -62,5 +68,5 @@ jobs:
       run: dir
       
     - name: Push package to octopus
-      run: octo push --package="myapp.${{PACKAGE_VERSION}}.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
+      run: octo push --package="myapp.$PACKAGE_VERSION.zip" --server="$OCTOPUS_SERVER_URL" --apiKey="$OCTOPUS_SERVER_API_KEY"
 
